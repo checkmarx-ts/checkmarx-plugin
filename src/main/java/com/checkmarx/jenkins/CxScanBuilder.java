@@ -151,7 +151,7 @@ public class CxScanBuilder extends Builder implements SimpleBuildStep {
     private Result vulnerabilityThresholdResult;
     private Result resolvedVulnerabilityThresholdResult;
     private boolean avoidDuplicateProjectScans;
-    private boolean generateXmlReport = true;
+    private Boolean generateXmlReport = true;
     public static final int MINIMUM_TIMEOUT_IN_MINUTES = 1;
     public static final String REPORTS_FOLDER = "Checkmarx/Reports";
     public static final String CX_ORIGIN = "Jenkins";
@@ -201,7 +201,7 @@ public class CxScanBuilder extends Builder implements SimpleBuildStep {
             @Nullable String osaArchiveIncludePatterns,
             boolean osaInstallBeforeScan,
             boolean avoidDuplicateProjectScans,
-            boolean generateXmlReport) {
+            Boolean generateXmlReport) {
         this.useOwnServerCredentials = useOwnServerCredentials;
         this.serverUrl = serverUrl;
         this.username = username;
@@ -211,7 +211,6 @@ public class CxScanBuilder extends Builder implements SimpleBuildStep {
         this.projectName = (projectName == null) ? buildStep : projectName;
         this.projectId = projectId;
         this.groupId = (groupId != null && !groupId.startsWith("Provide Checkmarx")) ? groupId : null;
-        ;
         this.teamPath = teamPath;
         this.sastEnabled = sastEnabled;
         this.preset = (preset != null && !preset.startsWith("Provide Checkmarx")) ? preset : null;
@@ -249,7 +248,7 @@ public class CxScanBuilder extends Builder implements SimpleBuildStep {
             this.vulnerabilityThresholdResult = Result.fromString(vulnerabilityThresholdResult);
         }
         this.avoidDuplicateProjectScans = avoidDuplicateProjectScans;
-        this.generateXmlReport = generateXmlReport;
+        this.generateXmlReport = (generateXmlReport == null) ? true : generateXmlReport;
     }
 
     // Configuration fields getters
