@@ -88,7 +88,7 @@ def groupAsPath = cxCommonClientDep.group.replaceAll ('\\.', '/')
 def localMavenCache = "~/.m2/repository/$groupAsPath/$cxCommonClientDep.name/$cxCommonClientDep.version"
 
 
-task buildCxCommonClient (type: io.github.httpbuilderng.http.HttpTask) {
+task loadCxCommonClient (type: io.github.httpbuilderng.http.HttpTask) {
 
 	config {
         request.uri = 'https://github.com/'
@@ -138,6 +138,13 @@ task buildCxCommonClient (type: io.github.httpbuilderng.http.HttpTask) {
 	}
 }
 
+task makePackage (dependsOn: build, type: Zip) {
+
+	archiveFileName = "Checkmarx.JenkinsPlugin.${version}.zip"
+	destinationDirectory = file("$buildDir/dist")
+	from "$buildDir/libs/$jenkinsPlugin.shortName" + ".$jenkinsPlugin.fileExtension"
+}
+
 jenkinsPlugin {
 	// version of Jenkins core this plugin depends on
 	coreVersion = '2.143'
@@ -146,13 +153,13 @@ jenkinsPlugin {
 	shortName = 'checkmarx'
 
 	// human-readable name of plugin
-	displayName = 'Jenkins Checkmarx Plugin'
+	displayName = 'Jenkins Checkmarx Plugin (PS Supported)'
 
 	// URL for plugin on Jenkins wiki or elsewhere
 	url = 'https://wiki.jenkins-ci.org/display/JENKINS/Checkmarx+CxSAST+Plugin'
 
 	// plugin URL on GitHub, optional
-	gitHubUrl = 'https://github.com/jenkinsci/checkmarx-plugin.git'
+	gitHubUrl = 'https://github.com/checkmarx-ts/checkmarx-plugin.git'
 
 	// use the plugin class loader before the core class loader, defaults to false
 	pluginFirstClassLoader = true
