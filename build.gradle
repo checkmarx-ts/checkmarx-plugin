@@ -139,7 +139,6 @@ task loadCxCommonClient (type: io.github.httpbuilderng.http.HttpTask) {
 }
 
 task makePackage (dependsOn: build, type: Zip) {
-
 	archiveFileName = "Checkmarx.JenkinsPlugin.${version}.zip"
 	destinationDirectory = file("$buildDir/dist")
 	from "$buildDir/libs/$jenkinsPlugin.shortName" + ".$jenkinsPlugin.fileExtension"
