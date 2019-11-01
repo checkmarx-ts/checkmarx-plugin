@@ -21,14 +21,12 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             - v1-dependencies-
 
-      - run: chmod +x gradlew
-
       - run:
           name: Populate Maven Local with PS version of Cx-Common-Client
           command: |
-            gradlew loadCxCommonClient
+            gradle loadCxCommonClient
 
-      - run: gradlew makePackage
+      - run: gradle makePackage
 
       - run:
           name: Move package for archive
