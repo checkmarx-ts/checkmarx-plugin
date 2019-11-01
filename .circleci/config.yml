@@ -28,7 +28,7 @@ jobs:
           command: |
             gradle loadCxCommonClient
 
-      - run: ls -lR ~/.m2/repository
+      - run: set
 
       - run: gradle makePackage
 
