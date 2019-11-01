@@ -85,7 +85,7 @@ def rootFileName = "cx-client-common-$cxVersion"
 def jarName = rootFileName + ".jar"
 def pomName = rootFileName + ".pom"
 def groupAsPath = cxCommonClientDep.group.replaceAll ('\\.', '/')
-def localMavenCache = "~/.m2/repository/$groupAsPath/$cxCommonClientDep.name/$cxCommonClientDep.version"
+def localMavenCache = "$System.env.HOME/.m2/repository/$groupAsPath/$cxCommonClientDep.name/$cxCommonClientDep.version"
 
 
 task loadCxCommonClient (type: io.github.httpbuilderng.http.HttpTask) {
@@ -98,6 +98,7 @@ task loadCxCommonClient (type: io.github.httpbuilderng.http.HttpTask) {
 		request.uri.path = "/checkmarx-ts/Cx-Client-Common/releases/download/$cxVersion/$jarName"
 
 		println "Downloading Cx-Common-Client dependency from " + request.uri.toURI ()
+		println "Destination: $localMavenCache"
 		
 		response.when(200){ fs, body ->
 
