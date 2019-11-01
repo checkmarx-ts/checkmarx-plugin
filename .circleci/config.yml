@@ -21,14 +21,10 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             - v1-dependencies-
 
-      - run: set
-
       - run:
           name: Populate Maven Local with PS version of Cx-Common-Client
           command: |
             gradle loadCxCommonClient
-
-      - run: ls -lR ~/.m2/repository
 
       - run: gradle makePackage
 
